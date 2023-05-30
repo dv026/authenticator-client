@@ -91,6 +91,6 @@ export function authenticator(apiKey: string) {
     forgotPassword: (login: string) => forgotPassword(login, apiKey),
     login: (props: AuthProps) => login(props, apiKey),
     resetPassword: (resetProps: ResetPasswordProps) => resetPassword(resetProps,apiKey),
-    checkAuth
+    checkAuth: checkAuth,
   }
 }

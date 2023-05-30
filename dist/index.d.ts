@@ -15,11 +15,12 @@ interface AuthResponseProps {
     user: IUser;
     accessToken: string;
 }
-
+declare function checkAuth(): Promise<AuthResponseProps>;
 export declare function authenticator(apiKey: string): {
-    registration: (props: AuthProps) => Promise<any>
-    login: (props: AuthProps) => Promise<AuthResponseProps>
-    forgotPassword: (login: string) => Promise<any>
-    resetPassword: (resetProps: ResetPasswordProps) => Promise<any>
-    checkAuth: () => Promise<AuthResponseProps>
-}
+    registration: (props: AuthProps) => Promise<any>;
+    forgotPassword: (login: string) => Promise<any>;
+    login: (props: AuthProps) => Promise<AuthResponseProps>;
+    resetPassword: (resetProps: ResetPasswordProps) => Promise<any>;
+    checkAuth: typeof checkAuth;
+};
+export {};

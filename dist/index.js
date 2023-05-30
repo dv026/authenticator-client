@@ -1,9 +1,10 @@
 const url = "https://ts-authenticator.onrender.com";
-export function registration(props) {
+function registration(props, apiKey) {
     return fetch(`${url}/registration`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
+            'API-KEY': apiKey,
         },
         body: JSON.stringify({
             login: props.login,
@@ -11,11 +12,12 @@ export function registration(props) {
         }),
     }).then((response) => response.json());
 }
-export function login(props) {
+function login(props, apiKey) {
     return fetch(`${url}/login`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
+            'API-KEY': apiKey,
         },
         body: JSON.stringify({
             login: props.login,
@@ -23,22 +25,24 @@ export function login(props) {
         }),
     }).then((response) => response.json());
 }
-export function forgotPassword(login) {
+function forgotPassword(login, apiKey) {
     return fetch(`${url}/forgot-password`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
+            'API-KEY': apiKey,
         },
         body: JSON.stringify({
             login: login,
         }),
     }).then((response) => response.json());
 }
-export function resetPassword(resetProps) {
+function resetPassword(resetProps, apiKey) {
     return fetch(`${url}/reset-password`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
+            'API-KEY': apiKey,
         },
         body: JSON.stringify({
             newPassword: resetProps.newPassword,
@@ -46,11 +50,20 @@ export function resetPassword(resetProps) {
         }),
     }).then((response) => response.json());
 }
-export function checkAuth() {
+function checkAuth() {
     return fetch(`${url}/check-auth`, {
         method: "GET",
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then((response) => response.json());
+}
+export function authenticator(apiKey) {
+    return {
+        registration: (props) => registration(props, apiKey),
+        forgotPassword: (login) => forgotPassword(login, apiKey),
+        login: (props) => login(props, apiKey),
+        resetPassword: (resetProps) => resetPassword(resetProps, apiKey),
+        checkAuth: checkAuth,
+    };
 }
