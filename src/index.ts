@@ -21,7 +21,7 @@ interface AuthResponseProps {
   accessToken: string
 }
 
-export function registration(props: AuthProps, apiKey: string) {
+function registration(props: AuthProps, apiKey: string) {
   return fetch(`${url}/registration`, {
     method: "POST",
     headers: {
@@ -35,7 +35,7 @@ export function registration(props: AuthProps, apiKey: string) {
   }).then((response) => response.json())
 }
 
-export function login(props: AuthProps, apiKey: string): Promise<AuthResponseProps> {
+function login(props: AuthProps, apiKey: string): Promise<AuthResponseProps> {
   return fetch(`${url}/login`, {
     method: "POST",
     headers: {
@@ -49,7 +49,7 @@ export function login(props: AuthProps, apiKey: string): Promise<AuthResponsePro
   }).then((response) => response.json())
 }
 
-export function forgotPassword(login: string, apiKey: string) {
+function forgotPassword(login: string, apiKey: string) {
   return fetch(`${url}/forgot-password`, {
     method: "POST",
     headers: {
@@ -62,7 +62,7 @@ export function forgotPassword(login: string, apiKey: string) {
   }).then((response) => response.json())
 }
 
-export function resetPassword(resetProps: ResetPasswordProps, apiKey: string) {
+function resetPassword(resetProps: ResetPasswordProps, apiKey: string) {
   return fetch(`${url}/reset-password`, {
     method: "POST",
     headers: {
@@ -76,7 +76,7 @@ export function resetPassword(resetProps: ResetPasswordProps, apiKey: string) {
   }).then((response) => response.json())
 }
 
-export function checkAuth(): Promise<AuthResponseProps> {
+function checkAuth(): Promise<AuthResponseProps> {
   return fetch(`${url}/check-auth`, {
     method: "GET",
     headers: {
@@ -85,7 +85,7 @@ export function checkAuth(): Promise<AuthResponseProps> {
   }).then((response) => response.json())
 }
 
-export const authenticator = (apiKey: string) => {
+export function authenticator(apiKey: string) {
   return {
     registration: (props: AuthProps) => registration(props, apiKey),
     forgotPassword: (login: string) => forgotPassword(login, apiKey),
